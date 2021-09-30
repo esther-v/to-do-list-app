@@ -3,9 +3,12 @@ const todoInput = document.querySelector('.todo-input');
 const todoButton = document.querySelector('.todo-button');
 const todoList = document.querySelector('.todo-list');
 
-todoButton.addEventListener('click', addTodo)
+//event listeners
+todoButton.addEventListener('click', addTodo);
+todoList.addEventListener('click', deleteCheck);
 
 
+//functions
 function addTodo(event){
     //prevent submit form
     event.preventDefault();
@@ -31,4 +34,23 @@ function addTodo(event){
 
     //append to list
     todoList.appendChild(todoDiv);
+    //clear input 
+    todoInput.value = "";
+}
+
+function deleteCheck(e){
+    const item = e.target;
+    const todo = item.parentElement;
+    //DELETE
+    if(item.classList[0] === 'trash-btn'){
+        todo.classList.add('fall')
+        todo.addEventListener('transitionend', function(){
+            todo.remove();
+        })
+        
+    }
+    //check
+    if(item.classList[0] === 'complete-btn'){
+        todo.classList.toggle('completed');
+    }
 }
